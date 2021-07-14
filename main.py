@@ -1,4 +1,4 @@
-import os, json, requests, webbrowser, time, sys, traceback
+import os, json, requests, webbrowser, time
 from libs import *
 
 def main():
