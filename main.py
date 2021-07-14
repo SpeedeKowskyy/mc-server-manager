@@ -73,7 +73,14 @@ def main():
                 server_input = input("Select which server do you want to start > ")
                 os.chdir(server_list[int(server_input) - 1])
 
-                memory = int(input("How much memory do you want your server to have? (specify in MB) > "))
+                while True:
+                    try:
+                        memory = int(input("How much memory do you want your server to have? (specify in MB) > "))
+                    except ValueError:
+                        print("You have to input a number value")
+                        continue
+                    else:
+                        break
                 flags = yesorno("Do you want to enable --nogui flag? Y/n > ")
                 clear()
                 if flags == True:
