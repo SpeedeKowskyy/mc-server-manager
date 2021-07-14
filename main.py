@@ -17,7 +17,7 @@ def main():
 
             links = import_links()
 
-            version_input = input("What version do you want to download?\nBy downloading, you agree to Minecraft EULA, as it will be auto-filled. Get info about it by writing EULA: \n>>> ")
+            version_input = input("What version do you want to download?\nBy downloading, you agree to Minecraft EULA, as it will be auto-filled. Get info about it by writing EULA: \nTo cancel press return\n>>> ")
 
             if "eula" in version_input.lower():
                 webbrowser.open("https://account.mojang.com/documents/minecraft_eula")
@@ -39,7 +39,14 @@ def main():
 
                 download_file(links[version_input])
 
-                memory = int(input("How much memory do you want your server to have? (specify in MB) > "))
+                while True:
+                    try:
+                        memory = int(input("How much memory do you want your server to have? (specify in MB) > "))
+                    except ValueError:
+                        print("You have to input a number value")
+                        continue
+                    else:
+                        break
 
                 with open("eula.txt", "w+") as f:
                     f.write("eula=true")
@@ -48,8 +55,12 @@ def main():
                 clear()
                 if flags == True:
                     os.system("java -Xms%dM -Xmx%dM -jar server.jar --nogui" % (memory, memory))
+                    os.chdir(def_dir)
+                    time.sleep(3)
                 else:
                     os.system("java -Xms%dM -Xmx%dM -jar server.jar" % (memory, memory))
+                    os.chdir(def_dir)
+                    time.sleep(3)
         if option == "2":
             os.chdir("servers")
             if len(os.listdir()) != 0:
@@ -67,8 +78,12 @@ def main():
                 clear()
                 if flags == True:
                     os.system("java -Xms%dM -Xmx%dM -jar server.jar --nogui" % (memory, memory))
+                    os.chdir(def_dir)
+                    time.sleep(3)
                 else:
                     os.system("java -Xms%dM -Xmx%dM -jar server.jar" % (memory, memory))
+                    os.chdir(def_dir)
+                    time.sleep(3)
             else:
                 print("You haven't created a server yet!")
         if option == "3" or option == "exit":
@@ -77,8 +92,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
